@@ -1,8 +1,6 @@
 const express = require('express')
 const router = require('./src/routes/api')
-const app = new express()
 const cookieParser = require('cookie-parser')
-const path = require('path')
 
 
 // Security middleware 
@@ -11,36 +9,51 @@ const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 const hpp = require('hpp')
 const cors = require('cors')
-const connectDB = require('./src/utility/connectDB')
 
 
+// Database Connection
+const connectDB = require('./src/utility/connectDB');
+
+// Create express app
+const app = express();
 
 
+// Apply Middlewares in correct order
+
+// 1. Body Parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 2. Cookie Parser (if needed for auth)
+app.use(cookieParser());
+
+
+// 3. Security Middleware
+app.use(cors());
+app.use(helmet());
+app.use(hpp());
+app.use(mongoSanitize());  // Make sure it's after body parser
+
+
+// 4. Rate Limiter
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,  // 15 minutes
-    max: 100,  // Limit each IP to 100 requests per windowMs
-    message: 'Too many requests, please try again later.'
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100,
+    message: 'Too many requests, please try again later.',
 });
+app.use(limiter);
 
 
-
-// security middleware implementation 
-app.use(cors())
-app.use(helmet())
-app.use(hpp())
-app.use(mongoSanitize())
-app.use(limiter)
+// 5. Connect to DB
+connectDB();
 
 
-// database connect 
-connectDB()
+// 6. Routes
+app.use('/api', router);
 
 
-// route implement 
-app.use('/api', router)
-
-
-module.exports = app
+// Export the app
+module.exports = app;
 
 
 
