@@ -1,4 +1,16 @@
+import { useForm } from "react-hook-form";
+
 const CreateForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-200 p-4 md:p-10">
       <div className="bg-white w-full max-w-3xl p-6 md:p-10 rounded-lg">
@@ -12,17 +24,20 @@ const CreateForm = () => {
           </p>
         </div>
 
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
             {/* product name */}
             <div className="flex flex-col">
               <label className="label mb-1 font-medium">Product Name</label>
               <input
                 type="text"
-                name="name"
+                {...register("name", { required: "Product name is required!" })}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Name"
               />
+              {errors.name && (
+                <span className="text-red-500">{errors.name.message}</span>
+              )}
             </div>
 
             {/* product code */}
@@ -30,10 +45,14 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Product Code</label>
               <input
                 type="text"
-                name="code"
+                {...register("code", {required : "Product Code is required !"})}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Code"
               />
+
+              {
+                errors.code && <span className="text-red-500">{errors.code.message}</span>
+              }
             </div>
           </div>
 
@@ -43,21 +62,29 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Product Image</label>
               <input
                 type="text"
-                name="image"
+                {...register("image", {required : "Product image is required !"})}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Image URL"
               />
+
+              {
+                errors.image && <span className="text-red-500">{errors.image.message}</span>
+              }
             </div>
 
             {/* unit price */}
             <div className="flex flex-col">
               <label className="label mb-1 font-medium">Unit Price</label>
               <input
-                type="text"
-                name="unitPrice"
+                type="number"
+                {...register("unitPrice", {required : "Product unit price is required !"})}
                 className="input w-full p-2 border rounded"
                 placeholder="Product unit price"
               />
+
+              {
+                errors.unitPrice && <span className="text-red-500">{errors.unitPrice.message}</span>
+              }
             </div>
           </div>
 
@@ -68,9 +95,14 @@ const CreateForm = () => {
               <input
                 type="number"
                 name="qty"
+                {...register("qty", {required : "Product quantity is required !"})}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Quantity"
               />
+
+              {
+                errors.qty && <span className="text-red-500">{errors.qty.message}</span>
+              }
             </div>
 
             {/* total price */}
@@ -79,9 +111,14 @@ const CreateForm = () => {
               <input
                 type="number"
                 name="totalPrice"
+                {...register("totalPrice", {required : "Product total price is required !"})}
                 className="input w-full p-2 border rounded"
                 placeholder="Total Price"
               />
+
+              {
+                errors.totalPrice && <span className="text-red-500">{errors.totalPrice.message}</span>
+              }
             </div>
           </div>
 

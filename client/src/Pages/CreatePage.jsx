@@ -1,12 +1,17 @@
+import CreateForm from "../components/Create/CreateForm";
 
-import CreateForm from '../components/Create/CreateForm';
 
 const CreatePage = () => {
-    return (
-        <div>
-            <CreateForm/>
-        </div>
-    );
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+
+  return (
+    <div>
+      <CreateForm />
+    </div>
+  );
 };
 
 export default CreatePage;
