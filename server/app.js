@@ -37,7 +37,7 @@ app.use(mongoSanitize());  // Make sure it's after body parser
 
 // 4. Rate Limiter
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 15 * 60 * 10000, // 15 minutes
     max: 100,
     message: 'Too many requests, please try again later.',
 });

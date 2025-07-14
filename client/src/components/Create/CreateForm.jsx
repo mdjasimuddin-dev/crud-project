@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Create } from "./../../apiServices/CRUDServices";
 
 const CreateForm = () => {
   const {
@@ -7,8 +8,32 @@ const CreateForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // console.log(data);
+
+    const saveData = {
+      Product_Name: data.name,
+      Product_Code: data.code,
+      Product_Image: data.image,
+      Unit_Price: data.unitPrice,
+      Qty: data.qty,
+      totalPrice: data.totalPrice,
+    };
+
+    try {
+      let result = await Create(
+        saveData.Product_Name,
+        saveData.Product_Code,
+        saveData.Product_Image,
+        saveData.Unit_Price,
+        saveData.Qty,
+        saveData.totalPrice
+      );
+
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -45,14 +70,16 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Product Code</label>
               <input
                 type="text"
-                {...register("code", {required : "Product Code is required !"})}
+                {...register("code", {
+                  required: "Product Code is required !",
+                })}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Code"
               />
 
-              {
-                errors.code && <span className="text-red-500">{errors.code.message}</span>
-              }
+              {errors.code && (
+                <span className="text-red-500">{errors.code.message}</span>
+              )}
             </div>
           </div>
 
@@ -62,14 +89,16 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Product Image</label>
               <input
                 type="text"
-                {...register("image", {required : "Product image is required !"})}
+                {...register("image", {
+                  required: "Product image is required !",
+                })}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Image URL"
               />
 
-              {
-                errors.image && <span className="text-red-500">{errors.image.message}</span>
-              }
+              {errors.image && (
+                <span className="text-red-500">{errors.image.message}</span>
+              )}
             </div>
 
             {/* unit price */}
@@ -77,14 +106,16 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Unit Price</label>
               <input
                 type="number"
-                {...register("unitPrice", {required : "Product unit price is required !"})}
+                {...register("unitPrice", {
+                  required: "Product unit price is required !",
+                })}
                 className="input w-full p-2 border rounded"
                 placeholder="Product unit price"
               />
 
-              {
-                errors.unitPrice && <span className="text-red-500">{errors.unitPrice.message}</span>
-              }
+              {errors.unitPrice && (
+                <span className="text-red-500">{errors.unitPrice.message}</span>
+              )}
             </div>
           </div>
 
@@ -94,15 +125,16 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Product Quantity</label>
               <input
                 type="number"
-                name="qty"
-                {...register("qty", {required : "Product quantity is required !"})}
+                {...register("qty", {
+                  required: "Product quantity is required !",
+                })}
                 className="input w-full p-2 border rounded"
                 placeholder="Product Quantity"
               />
 
-              {
-                errors.qty && <span className="text-red-500">{errors.qty.message}</span>
-              }
+              {errors.qty && (
+                <span className="text-red-500">{errors.qty.message}</span>
+              )}
             </div>
 
             {/* total price */}
@@ -110,15 +142,18 @@ const CreateForm = () => {
               <label className="label mb-1 font-medium">Total Price</label>
               <input
                 type="number"
-                name="totalPrice"
-                {...register("totalPrice", {required : "Product total price is required !"})}
+                {...register("totalPrice", {
+                  required: "Product total price is required !",
+                })}
                 className="input w-full p-2 border rounded"
                 placeholder="Total Price"
               />
 
-              {
-                errors.totalPrice && <span className="text-red-500">{errors.totalPrice.message}</span>
-              }
+              {errors.totalPrice && (
+                <span className="text-red-500">
+                  {errors.totalPrice.message}
+                </span>
+              )}
             </div>
           </div>
 

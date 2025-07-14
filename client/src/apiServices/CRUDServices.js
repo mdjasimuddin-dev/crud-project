@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const Create = (productName, productCode, img, unitPrice, qty, totalPrice) => {
-    const URL = `/products`
+    const URL = `http://localhost:8000/api/products`
     const postData = {
         ProductName: productName,
         ProductCode: productCode,
@@ -13,12 +13,13 @@ export const Create = (productName, productCode, img, unitPrice, qty, totalPrice
 
     return axios.post(URL, postData)
         .then(res => {
-            res.postData
+            console.log(res.status);
             if (res.status === 201) {
                 return true
             } else {
                 return false
             }
+
         })
         .catch(err => console.log(err))
 }
@@ -26,14 +27,14 @@ export const Create = (productName, productCode, img, unitPrice, qty, totalPrice
 
 
 export const Read = () => {
-    const URL = `/products`
+    const URL = `http://localhost:8000/api/products`
 
     return axios.get(URL)
         .then(res => {
-            console.log(res.data);
+            console.log(res.data.data);
 
             if (res.status === 200) {
-                return true
+                return res.data.data
             } else {
                 return false
             }
@@ -71,7 +72,7 @@ export const Update = (id, productName, productCode, img, unitPrice, qty, totalP
         TotalPrice: totalPrice,
     }
 
-    return axios.post(URL, postData)
+    return axios.put(URL, postData)
         .then(res => {
             console.log(res.data);
 
@@ -87,7 +88,7 @@ export const Update = (id, productName, productCode, img, unitPrice, qty, totalP
 
 export const Delete = (id) => {
     const URL = `products/${id}`
-    return axios.post(URL)
+    return axios.delete(URL)
         .then(res => {
             console.log(res.data);
 

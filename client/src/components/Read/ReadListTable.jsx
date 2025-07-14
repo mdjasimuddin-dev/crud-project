@@ -1,6 +1,18 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { Read } from "./../../apiServices/CRUDServices";
 
-const ReadListTable = ({ products, onUpdate, onDelete }) => {
+const ReadListTable = () => {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    Read().then((result) => {
+      console.log(result);
+      setProducts(result);
+    });
+  }, []);
+
+  console.log(products);
   return (
     <div className="overflow-x-auto p-4 md:p-10 flex justify-center">
       <table className="min-w-[600px] md:min-w-full max-w-full bg-white border border-gray-200 rounded shadow-md">
@@ -38,13 +50,13 @@ const ReadListTable = ({ products, onUpdate, onDelete }) => {
                 className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}
               >
                 <td className="py-2 px-3 md:px-4 border-b text-sm md:text-base">
-                  {product.name}
+                  {product.ProductName}
                 </td>
                 <td className="py-2 px-3 md:px-4 border-b text-sm md:text-base">
-                  {product.code}
+                  {product.ProductCode}
                 </td>
                 <td className="py-2 px-3 md:px-4 border-b text-sm md:text-base">
-                  {product.image ? (
+                  {product.Img ? (
                     <img
                       src={product.image}
                       alt={product.name}
@@ -55,23 +67,23 @@ const ReadListTable = ({ products, onUpdate, onDelete }) => {
                   )}
                 </td>
                 <td className="py-2 px-3 md:px-4 border-b text-sm md:text-base">
-                  {product.unitPrice}
+                  {product.UnitPrice}
                 </td>
                 <td className="py-2 px-3 md:px-4 border-b text-sm md:text-base">
-                  {product.qty}
+                  {product.Qty}
                 </td>
                 <td className="py-2 px-3 md:px-4 border-b text-sm md:text-base">
-                  {product.totalPrice}
+                  {product.TotalPrice}
                 </td>
                 <td className="py-2 px-3 md:px-4 border-b text-center space-x-1 md:space-x-2">
                   <button
-                    onClick={() => onUpdate(product)}
+                    // onClick={() => onUpdate(product)}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 md:px-3 md:py-1 rounded text-xs md:text-sm"
                   >
                     Update
                   </button>
                   <button
-                    onClick={() => onDelete(product)}
+                    // onClick={() => onDelete(product)}
                     className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 md:px-3 md:py-1 rounded text-xs md:text-sm"
                   >
                     Delete
