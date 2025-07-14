@@ -31,8 +31,6 @@ export const Read = () => {
 
     return axios.get(URL)
         .then(res => {
-            console.log(res.data.data);
-
             if (res.status === 200) {
                 return res.data.data
             } else {
@@ -44,13 +42,11 @@ export const Read = () => {
 
 
 export const ReadById = (id) => {
-    const URL = `/products/${id}`
+    const URL = `http://localhost:8000/api/products/${id}`
     return axios.get(URL)
         .then(res => {
-            console.log(res.data);
-
             if (res.status === 200) {
-                return true
+                return res.data.data
             } else {
                 return false
             }
@@ -61,7 +57,7 @@ export const ReadById = (id) => {
 
 
 export const Update = (id, productName, productCode, img, unitPrice, qty, totalPrice) => {
-    const URL = `/products/${id}`
+    const URL = `http://localhost:8000/api/products/${id}`
 
     const postData = {
         ProductName: productName,
@@ -74,10 +70,10 @@ export const Update = (id, productName, productCode, img, unitPrice, qty, totalP
 
     return axios.put(URL, postData)
         .then(res => {
-            console.log(res.data);
+            console.log(res.data.data);
 
             if (res.status === 200) {
-                return true
+                return res.data.data
             } else {
                 return false
             }

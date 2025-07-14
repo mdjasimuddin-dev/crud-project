@@ -1,16 +1,23 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useParams } from "react-router";
 
 const Navbar = () => {
+  const { id } = useParams();
   const navOptions = (
     <>
       <li>
-        <NavLink className='text-lg' to="/">Home</NavLink>
+        <NavLink className="text-lg" to="/">
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink className='text-lg' to="/create">Create</NavLink>
+        <NavLink className="text-lg" to="/create">
+          Create
+        </NavLink>
       </li>
       <li>
-        <NavLink className='text-lg' to="/update">Update</NavLink>
+        <NavLink className="text-lg" to={`/update/${id}`}>
+          Update
+        </NavLink>
       </li>
     </>
   );
@@ -59,7 +66,9 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <Link to='/' className="btn bg-transparent text-white">Bye Now</Link>
+          <Link to="/" className="btn bg-transparent text-white">
+            Bye Now
+          </Link>
         </div>
       </div>
     </div>

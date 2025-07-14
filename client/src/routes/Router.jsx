@@ -4,6 +4,7 @@ import UpdatePage from "../pages/UpdatePage";
 import CreatePage from "../pages/CreatePage";
 import Root from "../layouts/Root";
 import HomePage from "../pages/HomePage";
+import DetailsPage from "../pages/DetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,18 @@ const router = createBrowserRouter([
         element: <HomePage></HomePage>,
       },
       {
+        path: "/viewDetails/:id",
+        element: <DetailsPage></DetailsPage>,
+      },
+      {
         path: "/create",
         element: <CreatePage></CreatePage>,
       },
       {
-        path: "/update",
+        path: "/update/:id",
         element: <UpdatePage></UpdatePage>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:8000/api/products/${params.id}`),
       },
     ],
   },
