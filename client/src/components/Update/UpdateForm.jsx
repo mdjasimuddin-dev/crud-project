@@ -1,11 +1,12 @@
+import { useNavigate } from "react-router";
 import { Update } from "../../apiServices/CRUDServices";
 import { useForm } from "react-hook-form";
 
 const UpdateForm = ({ product }) => {
-  console.log(product);
-
   const { _id, ProductName, ProductCode, Img, UnitPrice, Qty, TotalPrice } =
     product.data;
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -33,6 +34,8 @@ const UpdateForm = ({ product }) => {
       updateDoc.TotalPrice
     ).then((result) => {
       console.log(result);
+
+      navigate("/");
     });
   };
 

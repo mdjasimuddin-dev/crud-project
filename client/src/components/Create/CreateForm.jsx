@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Create } from "./../../apiServices/CRUDServices";
+import { useNavigate } from "react-router";
 
 const CreateForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -31,6 +34,7 @@ const CreateForm = () => {
       );
 
       console.log(result);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }

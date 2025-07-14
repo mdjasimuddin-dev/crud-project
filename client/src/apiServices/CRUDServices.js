@@ -83,7 +83,7 @@ export const Update = (id, productName, productCode, img, unitPrice, qty, totalP
 
 
 export const Delete = (id) => {
-    const URL = `products/${id}`
+    const URL = `http://localhost:8000/api/products/${id}`
     return axios.delete(URL)
         .then(res => {
             console.log(res.data);

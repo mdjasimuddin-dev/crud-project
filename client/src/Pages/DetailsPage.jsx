@@ -8,7 +8,6 @@ const DetailsPage = () => {
 
   useEffect(() => {
     ReadById(id).then((res) => {
-      console.log(res);
       setProducts(res);
     });
   }, []);

@@ -3,7 +3,6 @@ import UpdateForm from "../components/Update/UpdateForm";
 
 const UpdatePage = () => {
   const item = useLoaderData();
-  console.log(item);
   return (
     <div>
       <UpdateForm product={item} />
